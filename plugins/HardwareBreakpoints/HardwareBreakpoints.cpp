@@ -165,7 +165,7 @@ void HardwareBreakpoints::setupBreakpoints() {
 				thread->getState(&state);
 
 				for (int i = 0; i < RegisterCount; ++i) {
-					if (ok[i]) {
+					if (edb::v1::eval_expression(addresses_[i]->text(), &addr[i])) {
 						set_breakpoint_state(
 							&state,
 							i,
