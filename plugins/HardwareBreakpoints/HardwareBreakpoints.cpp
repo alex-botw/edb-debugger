@@ -165,7 +165,8 @@ void HardwareBreakpoints::setupBreakpoints() {
 				thread->getState(&state);
 
 				for (int i = 0; i < RegisterCount; ++i) {
-					if (edb::v1::eval_expression(addresses_[i]->text(), &addr[i])) {
+					const BreakpointState bp_state = breakpoint_state(&state, i);
+					if (ok[i] || bp_state.enabled) {
 						set_breakpoint_state(
 							&state,
 							i,
